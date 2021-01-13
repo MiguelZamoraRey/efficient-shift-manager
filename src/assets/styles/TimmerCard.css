@@ -1,0 +1,34 @@
+.timmer-card{
+    min-width: 100%;
+    min-height: 50vh;
+    padding: 5vh 0px;
+}
+
+.timmer-card img{
+    fill: #343a40;
+    height: 5vh;
+    width: auto;
+}
+
+.timmer-card img:hover{
+    fill: #007bff;
+    height: 5vh;
+    width: auto;
+}
+
+.timmer-card .center{
+    text-align: center;
+}
+
+.timmer-card .time{
+    font-size: 7rem;
+    padding-bottom: 4rem;
+}
+
+.red{
+    background-color: red;
+}
+
+.green{
+    background-color: greenyellow;
+}

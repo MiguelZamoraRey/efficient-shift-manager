@@ -1,0 +1,10 @@
+.timmer-creator{
+    min-width: 100%;
+    min-height: 50vh;
+    padding: 5vh 0px;
+}
+
+.timmer-creator button{
+    min-width: 100%;
+    margin-top: 1em;
+}
