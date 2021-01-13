@@ -18,11 +18,10 @@ function App() {
   const [isActive, setIsActive] = useState(false);
   const [style, setStyle] = useState('timmer-card');
 
-  const wAudio = new Audio(work);
-  const rAudio = new Audio(rest);
-
   useEffect(() => {
     let intervalId;
+    const wAudio = new Audio(work);
+    const rAudio = new Audio(rest);
 
     if (isActive && isWork){
       setStyle("timmer-card red");
@@ -59,7 +58,7 @@ function App() {
     }
 
     return () => clearInterval(intervalId);
-  }, [isActive, counter, wminute, rminute, isWork, cicle, rAudio, wAudio])
+  }, [isActive, counter, wminute, rminute, isWork, cicle])
 
   function saveTime(wminutes, rminutes, cicles) {
     setWMinute(wminutes * 60);
@@ -68,7 +67,6 @@ function App() {
     setCounter(wminutes * 60);
     setIsWork(true);
     setIsActive(true);
-    wAudio.play();
   }
 
   function pause() {
