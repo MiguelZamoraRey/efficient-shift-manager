@@ -50,7 +50,7 @@ function App() {
     }
 
     return () => clearInterval(intervalId);
-  }, [isActive, counter])
+  }, [isActive, counter, wminute, rminute, isWork, cicle])
 
   function saveTime(wminutes, rminutes, cicles) {
     setWMinute(wminutes * 60);
