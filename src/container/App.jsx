@@ -4,6 +4,8 @@ import '../assets/styles/App.css';
 import Header from '../components/Header';
 import TimmerCard from '../components/TimmerCard';
 import TimmerCreator from '../components/TimmerCreator';
+import work from '../assets/audio/work.wav';
+import rest from '../assets/audio/end_block.wav';
 
 function App() {
   const [second, setSecond] = useState('00');
@@ -16,8 +18,19 @@ function App() {
   const [isActive, setIsActive] = useState(false);
   const [style, setStyle] = useState('timmer-card');
 
+  const wAudio = new Audio(work);
+  const rAudio = new Audio(rest);
+
   useEffect(() => {
     let intervalId;
+
+    if (isActive && isWork){
+      setStyle("timmer-card red");
+    } else if (isActive && !isWork) {
+      setStyle("timmer-card green");
+    } else {
+      setStyle("timmer-card");
+    }
 
     if (isActive && counter>0) {
       intervalId = setInterval(() => {
@@ -35,31 +48,39 @@ function App() {
     }else if(isActive && counter === 0 && cicle > 0){
         setCicle(cicles => cicles -1);
         if(!isWork){
-          setStyle('timmer-card green');
+          wAudio.play();
           setIsWork(true)
           setCounter(wminute);
         } else {
-          setStyle('timmer-card red');
+          rAudio.play();
           setIsWork(false)
           setCounter(rminute);
         }
-    }else{
-      setIsActive(false);
-      setStyle('timmer-card');
-      setIsWork(true);
     }
 
     return () => clearInterval(intervalId);
-  }, [isActive, counter, wminute, rminute, isWork, cicle])
+  }, [isActive, counter, wminute, rminute, isWork, cicle, rAudio, wAudio])
 
   function saveTime(wminutes, rminutes, cicles) {
     setWMinute(wminutes * 60);
     setRMinute(rminutes * 60);
-    setCicle(cicles * 2);
+    setCicle((cicles * 2) - 1);
     setCounter(wminutes * 60);
-    setStyle('timmer-card red');
     setIsWork(true);
     setIsActive(true);
+    wAudio.play();
+  }
+
+  function pause() {
+    if(isActive){
+      setIsActive(false);
+    }
+  }
+
+  function play() {
+    if(!isActive){
+      setIsActive(true);
+    }
   }
 
   return(
@@ -68,7 +89,7 @@ function App() {
       <Container fluid>
         <Row>
           <Col xs={12} md={8}>
-            <TimmerCard style={style} minute={minute} second={second} isActive={isActive} pause={()=>setIsActive(false)} play={()=>setIsActive(true)}/>
+            <TimmerCard style={style} minute={minute} second={second} isActive={isActive} pause={()=>pause()} play={()=>play()}/>
           </Col>
           <Col xs={12} md={4}>
             <TimmerCreator saveTime={saveTime}/>
